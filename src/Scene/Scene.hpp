@@ -17,4 +17,6 @@ public:
     ComponentPool<Transform> transformPool;
 
     void LoadFromXML(std::string filePath);
+
+    void RenderSpritePool();
 };

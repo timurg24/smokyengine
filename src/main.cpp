@@ -6,7 +6,7 @@
 
 int main() {
     std::cout << GenerateID("TestObject");
-    InitWindow(800,600,"Hello World!");
+    InitWindow(800,600,"SmokyEngine deV1.0.0");
 
     Scene sc;
     sc.LoadFromXML("level.xml");
@@ -14,6 +14,7 @@ int main() {
     while(!WindowShouldClose()) {
         BeginDrawing();
             ClearBackground(RAYWHITE);
+            sc.RenderSpritePool();
         EndDrawing();
     }
 }
