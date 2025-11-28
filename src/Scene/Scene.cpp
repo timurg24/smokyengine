@@ -112,7 +112,7 @@ void Scene::RenderSpritePool() {
         Rectangle sourceRec = {0.0f,0.0f, (float)sourceWidth, (float)sourceHeight};
         Rectangle destRec =  {transform.x, transform.y, transform.width, transform.height};
 
-        Vector2 origin = {sourceWidth/2, sourceHeight/2};
+        Vector2 origin = {0.0f, 0.0f};
 
         DrawTexturePro(sprite.tex, sourceRec, destRec, origin, transform.rotation, WHITE);
     }
