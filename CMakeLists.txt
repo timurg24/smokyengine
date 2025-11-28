@@ -17,6 +17,10 @@ add_executable(SmokyEngine
     src/Scene/Scene.cpp
 
     src/Entity/Entity.cpp
+
+    src/ScriptHandler/ScriptHandler.cpp #ScriptHandler is causing the crash (missing liblua dll)
+
+    src/ScriptAPI/Native/ScriptAPI.cpp
 )
 
 # Linking libraries
