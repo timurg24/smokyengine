@@ -139,63 +139,63 @@ namespace API {
         currentScene->spritePool.pool[id].tex = LoadTexture(path.c_str());
     }
 
-    // --- CAMERA --- //
-    void CamSetPosition(int x, int y) {
-    }
+    // // --- CAMERA --- //
+    // void CamSetPosition(int x, int y) {
+    // }
 
-    void CamSetZoom(float zoom) {
-    }
+    // void CamSetZoom(float zoom) {
+    // }
 
-    void CamRotation(float rotation) {
-    }
+    // void CamRotation(float rotation) {
+    // }
 
     // --- INPUT --- //
     bool IsKeyDown(int key) {
-        return false;
+        return ::IsKeyDown(key);
     }
 
     bool IsKeyPressed(int key) {
-        return false;
+        return ::IsKeyPressed(key);
     }
 
     bool IsKeyReleased(int key) {
-        return false;
+        return ::IsKeyReleased(key);
     }
 
     bool IsMouseDown(int button) {
-        return false;
+        return ::IsMouseButtonDown(button);
     }
 
     bool IsMousePressed(int button) {
-        return false;
+        return ::IsMouseButtonPressed(button);
     }
 
     bool IsMouseReleased(int button) {
-        return false;
+        return ::IsMouseButtonReleased(button);
     }
 
     bool IsMouseUp(int button) {
-        return false;
+        return ::IsMouseButtonUp(button);
     }
 
     float GetMouseX() {
-        return 0.0f;
+        return (float)::GetMouseX();
     }
 
     float GetMouseY() {
-        return 0.0f;
+        return (float)::GetMouseY();
     }
 
-    // --- AUDIO --- //
-    void PlaySound(string path) {
-    }
+    // // --- AUDIO --- //
+    // void PlaySound(string path) {
+    // }
 
-    void PlayMusic(string path) {
-    }
+    // void PlayMusic(string path) {
+    // }
 
-    void StopMusic() {
-    }
+    // void StopMusic() {
+    // }
 
-    void SetVolume() {
-    }
+    // void SetVolume() {
+    // }
 }
