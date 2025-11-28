@@ -1,2 +1,3 @@
-# smokyengine
-2D, Lua, ESC
+# SmokyEngine
+2D Game Engine with Lua scripting and ESC
+
