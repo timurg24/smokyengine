@@ -11,6 +11,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED True)
 # Executables
 add_executable(SmokyEngine
     src/main.cpp
+    src/global.cpp
     src/pugixml.cpp
 
     src/Scene/Scene.cpp
@@ -26,6 +27,7 @@ if(UNIX AND NOT MINGW)
     target_link_directories(SmokyEngine PRIVATE ${CMAKE_SOURCE_DIR}/external/lib/gcc)
     target_link_libraries(SmokyEngine PRIVATE
         raylib
+        liblua
         m pthread dl rt X11
     )
 elseif(MINGW)
@@ -33,6 +35,7 @@ elseif(MINGW)
     target_link_libraries(SmokyEngine PRIVATE
         raylib
         winmm
+        lua54
     )
 elseif(MSVC)
     target_link_directories(SmokyEngine PRIVATE ${CMAKE_SOURCE_DIR}/external/lib/msvc)
