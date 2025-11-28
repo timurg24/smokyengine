@@ -8,7 +8,7 @@
 using namespace std;
 
 
-namespace API {
+namespace NATIVE {
     // --- ENGINE --- //
     void Quit();
     int GetFPS();
@@ -19,29 +19,29 @@ namespace API {
     void Reload();
 
     // --- ENTITY --- //
-    void Create(string name);
+    void Create(Entity id);
     // TODO: Add `AddComponent(nameOfComponent, {data})`
-    bool Exist(string name);
-    void Destroy(string name);
+    bool Exist(Entity id);
+    void Destroy(Entity id);
     // void SetName(string oldName, string newName);
 
     // --- TRANSFORM --- //
-    void SetPosition(string name, float x, float y);
-    void SetRotation(string name, float rotation);
-    void SetWidth(string name, float width);
-    void SetHeight(string name, float height);
+    void SetPosition(Entity id, float x, float y);
+    void SetRotation(Entity id, float rotation);
+    void SetWidth(Entity id, float width);
+    void SetHeight(Entity id, float height);
 
-    float GetPositionX(string name);
-    float GetPositionY(string name);
-    float GetRotation(string name);
-    float GetWidth(string name);
+    float GetPositionX(Entity id);
+    float GetPositionY(Entity ide);
+    float GetRotation(Entity id);
+    float GetWidth(Entity id);
     float GetHeight(string name);
 
-    void TranslateX(string name, float mX);
-    void TranslateY(string name, float mY);
+    void TranslateX(Entity id, float mX);
+    void TranslateY(Entity id, float mY);
 
     // --- SPRITE --- //
-    void NewTexture(string name, string path);
+    void NewTexture(Entity id, string path);
 
     // --- CAMERA --- //
     void CamSetPosition(int x, int y);

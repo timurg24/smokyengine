@@ -4,7 +4,7 @@
 
 using namespace std;
 
-namespace API {
+namespace NATIVE {
 
     // --- ENGINE --- //
     void Quit() {
@@ -29,19 +29,19 @@ namespace API {
     }
 
     // --- ENTITY --- //
-    void Create(string name) {
+    void Create(Entity id) {
         // Honestly, since you can't create a new entity without having any data attached to it in ECS, this funcion is meaningless.
         // I am only keeping it here for better code readability for the game developers.
         // Do not tell anyone.
     }
 
-    bool Exist(string name) {
+    bool Exist(Entity id) {
         // Do I check the transform pool? I will for now.
-        return currentScene->transformPool.has[GenerateID(name)];
+        return currentScene->transformPool.has[id];
     }
 
-    void Destroy(string name) {
-        Entity id = GenerateID(name);
+    void Destroy(Entity id) {
+        
         // TODO: Properly delete entries, this is just me being lazy at 11 pm
         currentScene->transformPool.pool[id] = {};
 
@@ -55,7 +55,7 @@ namespace API {
     }
 
     // void SetName(string oldName, string newName) {
-    //     // ! FIX THIS -> ECS states that IDs should not change, do I need have to a display name and engine name for entities?
+    //     // ! FIX THIS -> ECS states that IDs should not change, do I need have to a display id and engine id for entities?
     //     Entity oldID = GenerateID(oldName);
     //     Entity newID = GenerateID(newName);
 
@@ -80,62 +80,62 @@ namespace API {
     // }
 
     // // --- TRANSFORM --- //
-    // void SetPosition(string name, float x, float y) {
+    // void SetPosition(string id, float x, float y) {
     // }
 
-    void SetRotation(string name, float rotation) {
-        Entity id = GenerateID(name);
+    void SetRotation(Entity id, float rotation) {
+        
         currentScene->transformPool.pool[id].rotation = rotation;
     }
 
-    void SetWidth(string name, float width) {
-        Entity id = GenerateID(name);
+    void SetWidth(Entity id, float width) {
+        
         currentScene->transformPool.pool[id].width = width;
     }
 
-    void SetHeight(string name, float height) {
-        Entity id = GenerateID(name);
+    void SetHeight(Entity id, float height) {
+        
         currentScene->transformPool.pool[id].height = height;
     }
 
-    float GetPositionX(string name) {
-        Entity id = GenerateID(name);
+    float GetPositionX(Entity id) {
+        
         return currentScene->transformPool.pool[id].x;
     }
 
-    float GetPositionY(string name) {
-        Entity id = GenerateID(name);
+    float GetPositionY(Entity id) {
+        
         return currentScene->transformPool.pool[id].y;
     }
 
-    float GetRotation(string name) {
-        Entity id = GenerateID(name);
+    float GetRotation(Entity id) {
+        
         return currentScene->transformPool.pool[id].rotation;
     }
 
-    float GetWidth(string name) {
-        Entity id = GenerateID(name);
+    float GetWidth(Entity id) {
+        
         return currentScene->transformPool.pool[id].width;
     }
 
-    float GetHeight(string name) {
-        Entity id = GenerateID(name);
+    float GetHeight(Entity id) {
+        
         return currentScene->transformPool.pool[id].height;
     }
 
-    void TranslateX(string name, float mX) {
-        Entity id = GenerateID(name);
+    void TranslateX(Entity id, float mX) {
+        
         currentScene->transformPool.pool[id].x += mX;
     }
 
-    void TranslateY(string name, float mY) {
-        Entity id = GenerateID(name);
+    void TranslateY(Entity id, float mY) {
+        
         currentScene->transformPool.pool[id].y += mY;
     }
 
     // --- SPRITE --- //
-    void NewTexture(string name, string path) {
-        Entity id = GenerateID(name);
+    void NewTexture(Entity id, string path) {
+        
         currentScene->spritePool.pool[id].tex = LoadTexture(path.c_str());
     }
 
