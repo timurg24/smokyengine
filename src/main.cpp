@@ -22,7 +22,7 @@ int main() {
 
     running = true;
 
-    int dt;
+    float dt;
 
     while(!WindowShouldClose() && running) {
         BeginDrawing();
