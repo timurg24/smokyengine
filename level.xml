@@ -1,6 +1,0 @@
-<Scene>
-    <Entity name="TestObject">
-        <Transform x="250.0" y="50.0" rotation="90.0" width="50.0" height="20.0"/>
-        <Sprite path="test.png"/>
-    </Entity>
-</Scene>
