@@ -4,6 +4,7 @@
 #include "Components/Script.h"
 #include "Components/Sprite.h"
 #include "Components/Transform.h"
+#include "ScriptHandler/ScriptHandler.hpp"
 
 #include <pugixml.hpp>
 
@@ -17,6 +18,8 @@ public:
     ComponentPool<TransformComponent> transformPool;
 
     std::string scenePath;
+
+    ScriptHandler handler;
 
     void LoadFromXML(std::string filePath);
 

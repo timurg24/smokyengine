@@ -3,18 +3,35 @@
 
 #include "Entity/Entity.h"
 #include "Scene/Scene.hpp"
+#include "ScriptAPI/Native/ScriptAPI.h"
+#include "global.h"
+
+#include "Config.h"
 
 int main() {
+
+    // Config
+    Config con;
+    con.Load();
+
     std::cout << GenerateID("TestObject");
-    InitWindow(800,600,"SmokyEngine deV1.0.0");
+    InitWindow(800,600,con.gameName.c_str());
 
-    Scene sc;
-    sc.LoadFromXML("level.xml");
+    currentScene = new Scene();
+    currentScene->LoadFromXML(con.startScene);
 
-    while(!WindowShouldClose()) {
+    running = true;
+
+    int dt;
+
+    while(!WindowShouldClose() && running) {
         BeginDrawing();
-            ClearBackground(RAYWHITE);
-            sc.RenderSpritePool();
+                ClearBackground(GRAY);
+                dt = GetFrameTime();
+                currentScene->handler.ExecUpdate(currentScene->scriptPool, dt);
+                currentScene->RenderSpritePool();
         EndDrawing();
     }
+
+    return 0;
 }

@@ -2,6 +2,7 @@
 #include "Entity/Entity.h"
 #include <iostream>
 
+#include "Scene/Scene.hpp" 
 using namespace std;
 
 namespace NATIVE {
@@ -80,8 +81,10 @@ namespace NATIVE {
     // }
 
     // // --- TRANSFORM --- //
-    // void SetPosition(string id, float x, float y) {
-    // }
+    void SetPosition(Entity id, float x, float y) {
+        currentScene->transformPool.pool[id].x = x;
+        currentScene->transformPool.pool[id].y = y;
+    }
 
     void SetRotation(Entity id, float rotation) {
         

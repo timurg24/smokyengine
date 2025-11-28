@@ -4,6 +4,7 @@
 #include <string>
 
 #include "global.h"
+#include "Entity/Entity.h"
 
 using namespace std;
 
@@ -35,7 +36,7 @@ namespace NATIVE {
     float GetPositionY(Entity ide);
     float GetRotation(Entity id);
     float GetWidth(Entity id);
-    float GetHeight(string name);
+    float GetHeight(Entity id);
 
     void TranslateX(Entity id, float mX);
     void TranslateY(Entity id, float mY);

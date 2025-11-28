@@ -2,6 +2,8 @@
 #include <raymath.h>
 #include <raylib.h>
 #include <iostream>
+#include <fstream>
+#include <sstream>
 
 // ================================
 //          Loading XML
@@ -9,6 +11,7 @@
 
 TransformComponent GetTransformData(pugi::xml_node node);
 Sprite GetSpriteData(pugi::xml_node node);
+Script GetScriptData(pugi::xml_node node);
 
 void Scene::LoadFromXML(std::string filePath) {
 
@@ -19,7 +22,7 @@ void Scene::LoadFromXML(std::string filePath) {
     result = doc.load_file(filePath.c_str());
 
     if (!result) {
-        std::cout << "XML load FAILED: " << result.description() << "\n";
+        std::cout << "XML Scene Load FAILED: " << result.description() << "(" << filePath << ")\n";
         return;
     }
 
@@ -53,9 +56,15 @@ void Scene::LoadFromXML(std::string filePath) {
 
         /// -- Getting Script Data -- ///
         if(entity.child("Script")) {
-
+            pugi::xml_node data = entity.child("Script");
+            scriptPool.Set(id, GetScriptData(data));
         }
     }
+
+
+    // execute the start scripts
+    handler.LoadScriptsFromPool(scriptPool);
+    
 }
 
 // --- Suck the transform data out of the node --- //
@@ -68,7 +77,6 @@ TransformComponent GetTransformData(pugi::xml_node node) {
     float width = node.attribute("width").as_float();
     float height = node.attribute("height").as_float();
 
-    // ! FIX THIS ERROR
     return {
         x,y,rotation,width,height
     };
@@ -88,8 +96,6 @@ Sprite GetSpriteData(pugi::xml_node node) {
 void Scene::RenderSpritePool() {
     for(Entity ent = 0; ent < spritePool.pool.size(); ent++) {
 
-        // ? FIX THIS, SEGFAULT IF COMPONENT MISSES TRANSFORM
-        // ^^ Is this error fixed now that there is a transform check during reading? Eliminating for the possibility to have a missing transform?
         if(!transformPool.has[ent] && spritePool.has[ent]) {
             // Entity does not have transform
             std::cout << "Entity #" << ent << " does not have a transform! Skipping!\n";
@@ -98,6 +104,26 @@ void Scene::RenderSpritePool() {
 
         TransformComponent position = transformPool.pool[ent];
         Sprite sprite =      spritePool.pool[ent];
-        //DrawTexture(sprite.tex, position.translation.x, position.translation.y, WHITE);
+        TransformComponent transform = transformPool.pool[ent];
+
+        int sourceWidth = sprite.tex.width;
+        int sourceHeight = sprite.tex.height;
+
+        Rectangle sourceRec = {0.0f,0.0f, (float)sourceWidth, (float)sourceHeight};
+        Rectangle destRec =  {transform.x, transform.y, transform.width, transform.height};
+
+        Vector2 origin = {sourceWidth/2, sourceHeight/2};
+
+        DrawTexturePro(sprite.tex, sourceRec, destRec, origin, transform.rotation, WHITE);
     }
+}
+
+Script GetScriptData(pugi::xml_node node) {
+    std::ifstream file(node.attribute("src").as_string());
+    std::ostringstream sstr;
+    sstr << file.rdbuf();
+    Script ret;
+    ret.src = sstr.str();
+    return ret;
+
 }
