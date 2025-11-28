@@ -7,10 +7,13 @@
 //          Loading XML
 // ================================
 
-Transform GetTransformData(pugi::xml_node node);
+TransformComponent GetTransformData(pugi::xml_node node);
 Sprite GetSpriteData(pugi::xml_node node);
 
 void Scene::LoadFromXML(std::string filePath) {
+
+    scenePath = filePath;
+
     // --- Loading Level XML --- //
     pugi::xml_document doc;
     result = doc.load_file(filePath.c_str());
@@ -35,8 +38,11 @@ void Scene::LoadFromXML(std::string filePath) {
 
         /// -- Getting Transform data -- ///
         if(entity.child("Transform")) {
-            Transform data = GetTransformData(entity.child("Transform"));
+            TransformComponent data = GetTransformData(entity.child("Transform"));
             transformPool.Set(id, data);
+        } else {
+            std::cout << "ERROR: Entity \"" << entity.attribute("name").as_string() << "\" (ID " << id << ") does not have transform component!\n Please shutdown the game.\n";
+            continue;
         }
 
         /// -- Getting Sprite data -- ///
@@ -53,7 +59,7 @@ void Scene::LoadFromXML(std::string filePath) {
 }
 
 // --- Suck the transform data out of the node --- //
-Transform GetTransformData(pugi::xml_node node) {
+TransformComponent GetTransformData(pugi::xml_node node) {
     float x = node.attribute("x").as_float();
     float y = node.attribute("y").as_float();
 
@@ -62,13 +68,9 @@ Transform GetTransformData(pugi::xml_node node) {
     float width = node.attribute("width").as_float();
     float height = node.attribute("height").as_float();
 
+    // ! FIX THIS ERROR
     return {
-        {x,y,1.0f},
-        QuaternionFromAxisAngle(
-            (Vector3){0,0,1}, 
-            rotation*DEG2RAD
-        ),
-        {width,height,1.0f}
+        x,y,rotation,width,height
     };
 
 }
@@ -86,15 +88,16 @@ Sprite GetSpriteData(pugi::xml_node node) {
 void Scene::RenderSpritePool() {
     for(Entity ent = 0; ent < spritePool.pool.size(); ent++) {
 
-        // ! FIX THIS, SEGFAULT IF COMPONENT MISSES TRANSFORM
+        // ? FIX THIS, SEGFAULT IF COMPONENT MISSES TRANSFORM
+        // ^^ Is this error fixed now that there is a transform check during reading? Eliminating for the possibility to have a missing transform?
         if(!transformPool.has[ent] && spritePool.has[ent]) {
             // Entity does not have transform
             std::cout << "Entity #" << ent << " does not have a transform! Skipping!\n";
             continue;
         }
 
-        Transform position = transformPool.pool[ent];
+        TransformComponent position = transformPool.pool[ent];
         Sprite sprite =      spritePool.pool[ent];
-        DrawTexture(sprite.tex, position.translation.x, position.translation.y, WHITE);
+        //DrawTexture(sprite.tex, position.translation.x, position.translation.y, WHITE);
     }
 }

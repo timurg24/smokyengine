@@ -3,7 +3,7 @@
 
 #include "Components/Script.h"
 #include "Components/Sprite.h"
-#include "Components/Transform.h" // Not needed, just kept here to remind you of the transform component
+#include "Components/Transform.h"
 
 #include <pugixml.hpp>
 
@@ -14,7 +14,9 @@ public:
 
     ComponentPool<Script> scriptPool;
     ComponentPool<Sprite> spritePool;
-    ComponentPool<Transform> transformPool;
+    ComponentPool<TransformComponent> transformPool;
+
+    std::string scenePath;
 
     void LoadFromXML(std::string filePath);
 

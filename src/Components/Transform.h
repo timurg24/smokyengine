@@ -1,2 +1,9 @@
 #pragma once
-// Use Raymath's transform instead
+#include <raylib.h>
+
+struct TransformComponent {
+    float x, y;
+    float rotation;
+    float width;
+    float height;
+};
