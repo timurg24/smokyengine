@@ -6,3 +6,7 @@ Please read the documentation (`Getting Started`) before compiling the engine as
 
 If you make a game in this engine it will mean the world to me!
 
+# Upcoming Features:
+- Collision
+- Audio
+- UI
